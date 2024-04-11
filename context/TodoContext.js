@@ -5,6 +5,7 @@ export const ADD_TODO = 'ADD_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const EDIT_TODO = 'EDIT_TODO';
 export const SET_TODOS = 'SET_TODOS';
+export const TOGGLE_IMPT = 'TOGGLE_IMP';
 
 const TodoContext = createContext();
 
@@ -23,6 +24,10 @@ const todoReducer = (state, action) => {
     case EDIT_TODO:
       return state.map((todo) =>
         todo.id === action.payload.id ? action.payload : todo
+      );
+      case TOGGLE_IMPT:
+        return state.map((todo) =>
+        todo.id === action.payload ? { ...todo, isImportant: !todo.isImportant } : todo
       );
     default:
       return state;

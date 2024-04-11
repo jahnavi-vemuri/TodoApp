@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TodoProvider } from '../TodoApp/src/TodoContext';
-import TodoScreen from '../TodoApp/src/ToDoScreen';
-import AddTodoScreen from '../TodoApp/src/AddToDoScreen';
+import { TodoProvider } from './context/TodoContext';
+import TodoScreen from './screens/ToDoScreen';
+import AddTodoScreen from './screens/AddToDoScreen';
 
 const Stack = createNativeStackNavigator();
 

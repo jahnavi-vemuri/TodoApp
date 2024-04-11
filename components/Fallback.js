@@ -3,20 +3,15 @@ import React from "react";
 
 const Fallback = () => {
 	return (
-		<View style={{ alignItems: "center" }}>
+		<View style={styles.container}>
 			<Image
-				source={require("../../TodoApp/assets/to-do-list.png")}
-				style={{ height: 300, width: 300 }}
+				source={require("../assets/to-do-list.png")}
+				style={styles.image}
 			/>
 			<View
-				style={{
-					paddingVertical: 12,
-					paddingHorizontal: 12,
-					borderRadius: 6,
-					marginTop: 20,
-				}}
+				style={styles.textView}
 			>
-				<Text style={{ color: "#1e90ff", fontWeight:"700", fontSize: 20}}>Start Adding Your Task</Text>
+				<Text style={styles.text}>No tasks present</Text>
 			</View>
 		</View>
 	);
@@ -24,4 +19,23 @@ const Fallback = () => {
 
 export default Fallback;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	container:{
+		alignItems: "center"
+	},
+	image:{
+		height: 300, 
+		width: 300
+	},
+	textView:{
+		paddingVertical: 12,
+		paddingHorizontal: 12,
+		borderRadius: 6,
+		marginTop: 20,
+	},
+	text:{
+		color: "#1e90ff", 
+		fontWeight:"700", 
+		fontSize: 20
+	}
+});
