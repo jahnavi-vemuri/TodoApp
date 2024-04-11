@@ -1,26 +1,45 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, TouchableOpacity, Text } from 'react-native';
+import { useTodoContext, ADD_TODO, EDIT_TODO } from './TodoContext';
 import Icon from "react-native-vector-icons/Ionicons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const AddToDoScreen = ({ navigation, route }) => {
-  const [todo, setTodo] = useState("");
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
+const AddTodoScreen = ({ navigation, route }) => {
+  const [todo, setTodo] = useState('');
+  const { dispatch } = useTodoContext();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const { handleAddTodo,editedTodo } = route.params;
-  const isEditing = !!editedTodo;
 
-  useEffect(() => {
-    if (editedTodo) {
-      setTodo(editedTodo.title);
-      setSelectedDate(editedTodo.date);
-      setSelectedTime(editedTodo.time);
-    }
-  }, [editedTodo]);
+    // Extract todo details if available (when editing)
+    const editTodo = route.params ? route.params.todo : null;
+    useEffect(() => {
+      if (editTodo) {
+        setTodo(editTodo.title);
+        setSelectedDate(editTodo.date);
+        setSelectedTime(editTodo.time);
+      }
+    }, [editTodo]);
+  
+    const handleSaveTodo = () => {
+      const newTodo = {
+        id: editTodo ? editTodo.id : Date.now(),
+        title: todo,
+        date: selectedDate,
+        time: selectedTime
+      };
+  
+      if (editTodo) {
+        dispatch({ type: EDIT_TODO, payload: newTodo });
+      } else {
+        dispatch({ type: ADD_TODO, payload: newTodo });
+      }
+  
+      navigation.goBack();
+    };
 
-  const formatDate = (dateString) => {
+    const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -38,27 +57,6 @@ const AddToDoScreen = ({ navigation, route }) => {
     return `${hours}:${minutes} ${amPM}`;
   };
 
-  const handleSave = () => {
-    if (!todo.trim()) {
-      console.log("Title is required.");
-      return;
-  }
-    const updatedTodo = {
-        id: isEditing ? editedTodo.id : Date.now(), 
-        title: todo.trim(),
-        date: selectedDate,
-        time: selectedTime,
-    };
-    if (isEditing) {
-    // handleEditTodo(updatedTodo);
-    } else {
-      // Add the new todo
-      handleAddTodo(updatedTodo);
-    }
-    // handleAddTodo(updatedTodo);
-    navigation.goBack();
-};
-  
   const handleDateConfirm = (date) => {
     setSelectedDate(date);
     setShowCalendar(false);
@@ -70,7 +68,7 @@ const AddToDoScreen = ({ navigation, route }) => {
   };
 
   return (
-    <View style={{ marginHorizontal: 16, marginTop: 40 }}>
+    <View style={{ margin: 16 }}>
       <TextInput
         style={{
           borderWidth: 2,
@@ -80,9 +78,9 @@ const AddToDoScreen = ({ navigation, route }) => {
           paddingHorizontal: 16,
           marginBottom: 10
         }}
-        placeholder="Add Task"
+        placeholder="Add Todo"
         value={todo}
-        onChangeText={(userText) => setTodo(userText)}
+        onChangeText={setTodo}
       />
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <TextInput
@@ -103,9 +101,9 @@ const AddToDoScreen = ({ navigation, route }) => {
         <TouchableOpacity onPress={() => setShowCalendar(true)}>
           <Icon name="calendar-outline" size={30} color="#1e90ff" />
         </TouchableOpacity>
-      </View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TextInput
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+         <TextInput
           style={{
             flex: 1,
             borderWidth: 2,
@@ -124,7 +122,6 @@ const AddToDoScreen = ({ navigation, route }) => {
           <Icon name="time-outline" size={30} color="#1e90ff" />
         </TouchableOpacity>
       </View>
-
       <DateTimePickerModal
         isVisible={showCalendar}
         mode="date"
@@ -137,27 +134,26 @@ const AddToDoScreen = ({ navigation, route }) => {
         onConfirm={handleTimeConfirm}
         onCancel={() => setShowTimePicker(false)}
       />
-
       <TouchableOpacity
         style={{
           backgroundColor: "#1e90ff",
           borderRadius: 6,
           paddingVertical: 12,
-          marginVertical: 34,
+          marginVertical: 10,
           alignItems: "center",
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.8,
           shadowRadius: 3,
         }}
-        onPress={() => handleSave()}
+        onPress={() => handleSaveTodo()}
       >
         <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
-          {isEditing ? "Save" : "Add"}
-        </Text>
+          {editTodo ? 'Save' : 'Add'}
+          </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default AddToDoScreen;
+export default AddTodoScreen;

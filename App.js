@@ -1,23 +1,31 @@
-import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
-import ToDoScreen from './src/ToDoScreen';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AddToDoScreen from './src/AddToDoScreen';
+import { TodoProvider } from '../TodoApp/src/TodoContext';
+import TodoScreen from '../TodoApp/src/ToDoScreen';
+import AddTodoScreen from '../TodoApp/src/AddToDoScreen';
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
-    <NavigationContainer>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Stack.Navigator initialRouteName="ToDo">
-          <Stack.Screen name="ToDo" component={ToDoScreen} />
-          <Stack.Screen name="AddToDo" component={AddToDoScreen} />
+    <TodoProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Todo">
+          <Stack.Screen
+            name="Todo"
+            component={TodoScreen}
+            options={{ title: 'Todo List' }}
+          />
+          <Stack.Screen
+            name="AddTodo"
+            component={AddTodoScreen}
+            options={{ title: 'Add Todo' }}
+          />
         </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+      </NavigationContainer>
+    </TodoProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-});
+export default App;
