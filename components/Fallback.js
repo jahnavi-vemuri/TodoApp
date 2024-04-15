@@ -11,7 +11,7 @@ const Fallback = () => {
 			<View
 				style={styles.textView}
 			>
-				<Text style={styles.text}>No tasks present</Text>
+				<Text style={styles.text}>No tasks available</Text>
 			</View>
 		</View>
 	);

@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
-import { IconButton } from 'react-native-paper';
+import { IconButton, Checkbox } from 'react-native-paper';
 import moment from 'moment';
 
 const TaskItem = ({ item, onDelete, onEdit, onToggleImportant }) => {
-    const formattedDate = item.date ? moment(item.date).format('DD/MM/YYYY') : '';
-    const formattedTime = item.time ? moment(item.time, 'HH:mm').format('hh:mm A') : '';
+  
+  const [isCompleted, setIsCompleted] = useState(false);
+  const formattedDate = item.date ? moment(item.date).format('DD/MM/YYYY') : '';
+  const formattedTime = item.time ? moment(item.time, 'HH:mm').format('hh:mm A') : '';
+
+  const toggleCompleted = () => {
+    setIsCompleted(!isCompleted);
+  };
     return (
-      <View
-        style={styles.container}>
+      <View style={styles.container}>
         <View style={{ flex: 1 }}>
           <Text style={styles.titleText}>
             {item.title}

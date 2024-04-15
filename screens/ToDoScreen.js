@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
-import { View, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import { useTodoContext, DELETE_TODO, TOGGLE_IMPT } from '../context/TodoContext';
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, TouchableOpacity, TextInput, StyleSheet, Alert, Text } from 'react-native';
+import { useTodoContext, DELETE_TODO, TOGGLE_IMPT, SET_TODOS, LOGOUT_USER } from '../context/TodoContext';
 import { IconButton } from 'react-native-paper';
 import Fallback from '../components/Fallback'; 
-import TaskItem from '../components/TaskItem'
+import TaskItem from '../components/TaskItem';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TodoScreen = ({ navigation }) => {
-  const { todos, dispatch } = useTodoContext();
+const TodoScreen = () => {
+  const { todos, dispatch, loggedInUser } = useTodoContext();
   const [showImportant, setShowImportant] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigation = useNavigation();
+
+  useEffect(() => {
+  const fetchUserTodos = async () => {
+    try {
+      if (loggedInUser) {
+        const userTodosKey = `todos_${loggedInUser}`;
+        const todosData = await AsyncStorage.getItem(userTodosKey);
+        if (todosData) {
+          const todos = JSON.parse(todosData);
+          dispatch({ type: SET_TODOS, payload: todos });
+        } else {
+          console.log(`No todos found for user: ${loggedInUser}`);
+        }
+      }
+    } catch (error) {
+      console.error('Error retrieving user data from AsyncStorage:', error);
+      Alert.alert('Error', 'An error occurred while fetching todos. Please try again.');
+    }
+  };
+
+  fetchUserTodos();
+}, [dispatch, loggedInUser]);
+
 
   const handleDelete = (id) => {
     dispatch({ type: DELETE_TODO, payload: id });
@@ -26,12 +52,28 @@ const TodoScreen = ({ navigation }) => {
     setShowImportant(!showImportant);
   };
 
+  const handleLogout = async () => {
+    try {
+      // Log the user and data before logout
+      console.log('Logging out user:', loggedInUser);
+      console.log('User data before logout:', todos);
+  
+      // Remove loggedInUser from AsyncStorage
+      await AsyncStorage.removeItem('loggedInUser');
+      navigation.navigate('Login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      Alert.alert('Error', 'An error occurred while logging out. Please try again.');
+    }
+  };
+  
+
   const filteredTodos = todos.filter(todo =>
-    todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+    todo.user === loggedInUser && todo.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredImportantTodos = todos.filter(todo =>
-    todo.isImportant && todo.title.toLowerCase().includes(searchQuery.toLowerCase())
+    todo.user === loggedInUser && todo.isImportant && todo.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -45,9 +87,14 @@ const TodoScreen = ({ navigation }) => {
         />
         <TouchableOpacity
           style={styles.imp}
-          onPress={handleShowImportant}
-        >
-          <IconButton icon="heart" size={30}/>
+          onPress={handleShowImportant}>
+          <IconButton icon={showImportant ? 'heart' : 'heart-outline'} size={30} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.logoutButton}
+          onPress={handleLogout}>
+          <IconButton icon="logout" size={30} />
+          <Text>{/* Example logout icon */}</Text>
         </TouchableOpacity>
       </View>
       <View style={{ marginTop: 10 }}>
@@ -105,6 +152,9 @@ const styles = StyleSheet.create({
     borderRadius: 20, 
     padding: 3
   },
+  logoutButton: {
+    marginLeft: 10,
+  },
   button:{
     position: 'absolute',
     bottom: 20,
@@ -113,6 +163,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     padding: 8,
   }
-})
+});
 
 export default TodoScreen;

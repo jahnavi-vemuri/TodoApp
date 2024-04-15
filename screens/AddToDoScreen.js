@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { useTodoContext, ADD_TODO, EDIT_TODO } from '../context/TodoContext';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTodoContext, ADD_TODO, SET_TODOS, EDIT_TODO } from '../context/TodoContext';
 
 const AddTodoScreen = ({ navigation, route }) => {
   const [todo, setTodo] = useState('');
-  const { dispatch } = useTodoContext();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const { dispatch, loggedInUser, todos } = useTodoContext();
 
   const editTodo = route.params ? route.params.todo : null;
   useEffect(() => {
@@ -22,7 +23,7 @@ const AddTodoScreen = ({ navigation, route }) => {
     }
   }, [editTodo]);
 
-  const handleSaveTodo = () => {
+  const handleSaveTodo = async () => {
     if (!todo.trim()) {
       alert('Please enter a todo title.');
       return;
@@ -31,16 +32,29 @@ const AddTodoScreen = ({ navigation, route }) => {
       id: editTodo ? editTodo.id : Date.now(),
       title: todo,
       date: selectedDate,
-      time: selectedTime
+      time: selectedTime,
+      user: loggedInUser
     };
 
-    if (editTodo) {
-      dispatch({ type: EDIT_TODO, payload: newTodo });
-    } else {
-      dispatch({ type: ADD_TODO, payload: newTodo });
-    }
-
-    navigation.goBack();
+    try {
+      if (!editTodo) {
+          // If it's a new todo, add it to AsyncStorage
+          const userTodosKey = `todos_${loggedInUser}`;
+          const existingTodos = todos || [];
+          const updatedTodos = [...existingTodos, newTodo];
+          await AsyncStorage.setItem(userTodosKey, JSON.stringify(updatedTodos));
+          dispatch({ type: SET_TODOS, payload: updatedTodos });
+      } else {
+          // If it's an existing todo, update it in AsyncStorage
+          const updatedTodos = todos.map(t => t.id === newTodo.id ? newTodo : t);
+          await AsyncStorage.setItem(`todos_${loggedInUser}`, JSON.stringify(updatedTodos));
+          dispatch({ type: SET_TODOS, payload: updatedTodos });
+      }
+      navigation.goBack();
+  } catch (error) {
+      console.error('Error saving todo:', error);
+      Alert.alert('Error', 'An error occurred while saving the todo. Please try again.');
+  }
   };
 
   const formatDate = (dateString) => {
