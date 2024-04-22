@@ -43,34 +43,6 @@ const TodoLoginScreen = ({ navigation}) => {
             Alert.alert('Error', 'An error occurred while logging in. Please try again.');
         }
     };   
-    
-    // const handleLoginPress = async () => {
-    //     try {
-    //         const response = await axios.get(`${API_URL}/users?username=${username}&password=${password}`);
-    //         const user = response.data[0]; // Assuming the response is an array with a single user object
-            
-    //         if (user) {
-    //             // Store logged-in user data in the context
-    //             dispatch({ type: LOGIN_USER, payload: user });
-
-    //             // Retrieve todos data for the logged-in user
-    //             const todosResponse = await axios.get(`${API_URL}/todos?username=${user.username}`);
-    //             const todos = todosResponse.data;
-    //             console.log(`Todos for user: ${user.username}`, todos);
-
-    //             // Update todos with user property
-    //             const todosWithUser = todos.map(todo => ({ ...todo, user: user.username }));
-    //             dispatch({ type: SET_TODOS, payload: todosWithUser });
-
-    //             navigation.navigate('Todo');
-    //         } else {
-    //             Alert.alert('Error', 'Invalid username or password. Please try again.');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error logging in:', error);
-    //         Alert.alert('Error', 'An error occurred while logging in. Please try again.');
-    //     }
-    // };
 
     return (
         <View style={styles.container}>
@@ -79,6 +51,7 @@ const TodoLoginScreen = ({ navigation}) => {
                 placeholder="Username"
                 value={username}
                 onChangeText={(text) => setUsername(text)}
+                testID="usernameInput"
             />
             <View style={[styles.passwordContainer, styles.input]}>
                 <TextInput
@@ -87,9 +60,11 @@ const TodoLoginScreen = ({ navigation}) => {
                     secureTextEntry={!isPasswordVisible}
                     value={password}
                     onChangeText={(text) => setPassword(text)}
+                    testID="passwordInput"
                 />
                 <TouchableOpacity
                     onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                    testID="passwordVisibilityButton"
                 >
                     <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="black" />
                 </TouchableOpacity>
@@ -97,6 +72,7 @@ const TodoLoginScreen = ({ navigation}) => {
             <TouchableOpacity
                 style={[styles.textButton, { backgroundColor: "#1e90ff" }]}
                 onPress={handleLoginPress}
+                testID="loginButton" 
             >
                 <Text style={styles.buttonText}>
                     Login

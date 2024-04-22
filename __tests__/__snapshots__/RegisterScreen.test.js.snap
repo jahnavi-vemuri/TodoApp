@@ -1,0 +1,671 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegisterScreen /> renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Enter Username"
+    style={
+      {
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "fontSize": 16,
+        "marginBottom": 10,
+        "padding": 16,
+        "width": "80%",
+      }
+    }
+    value=""
+  />
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Firstname"
+      style={
+        {
+          "borderColor": "#1e90ff",
+          "borderRadius": 10,
+          "borderWidth": 2,
+          "fontSize": 16,
+          "marginBottom": 10,
+          "padding": 16,
+          "width": "39%",
+        }
+      }
+      value=""
+    />
+    <View
+      style={
+        {
+          "width": 10,
+        }
+      }
+    />
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Lastname"
+      style={
+        {
+          "borderColor": "#1e90ff",
+          "borderRadius": 10,
+          "borderWidth": 2,
+          "fontSize": 16,
+          "marginBottom": 10,
+          "padding": 16,
+          "width": "39%",
+        }
+      }
+      value=""
+    />
+  </View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="EmailId"
+    style={
+      {
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "fontSize": 16,
+        "marginBottom": 10,
+        "padding": 16,
+        "width": "80%",
+      }
+    }
+    value=""
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "marginBottom": 10,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Enter Password"
+      secureTextEntry={true}
+      style={
+        {
+          "flex": 1,
+          "fontSize": 16,
+          "padding": 16,
+        }
+      }
+      value=""
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text />
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "marginBottom": 10,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Confirm Password"
+      secureTextEntry={true}
+      style={
+        {
+          "flex": 1,
+          "fontSize": 16,
+          "padding": 16,
+        }
+      }
+      value=""
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text />
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#1e90ff",
+        "borderRadius": 6,
+        "marginVertical": 10,
+        "opacity": 1,
+        "paddingVertical": 12,
+        "shadowColor": "#000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 3,
+        "width": "80%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#fff",
+          "fontSize": 16,
+        }
+      }
+    >
+      Register
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text>
+      Already have an account ?
+    </Text>
+    <Text>
+       
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "blue",
+            "textDecorationLine": "underline",
+          }
+        }
+      >
+        Login
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<TodoRegisterScreen /> renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Enter Username"
+    style={
+      {
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "fontSize": 16,
+        "marginBottom": 10,
+        "padding": 16,
+        "width": "80%",
+      }
+    }
+    value=""
+  />
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Firstname"
+      style={
+        {
+          "borderColor": "#1e90ff",
+          "borderRadius": 10,
+          "borderWidth": 2,
+          "fontSize": 16,
+          "marginBottom": 10,
+          "padding": 16,
+          "width": "39%",
+        }
+      }
+      value=""
+    />
+    <View
+      style={
+        {
+          "width": 10,
+        }
+      }
+    />
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Lastname"
+      style={
+        {
+          "borderColor": "#1e90ff",
+          "borderRadius": 10,
+          "borderWidth": 2,
+          "fontSize": 16,
+          "marginBottom": 10,
+          "padding": 16,
+          "width": "39%",
+        }
+      }
+      value=""
+    />
+  </View>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="EmailId"
+    style={
+      {
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "fontSize": 16,
+        "marginBottom": 10,
+        "padding": 16,
+        "width": "80%",
+      }
+    }
+    value=""
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "marginBottom": 10,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Enter Password"
+      secureTextEntry={true}
+      style={
+        {
+          "flex": 1,
+          "fontSize": 16,
+          "padding": 16,
+        }
+      }
+      value=""
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text />
+    </View>
+  </View>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "borderColor": "#1e90ff",
+        "borderRadius": 10,
+        "borderWidth": 2,
+        "flexDirection": "row",
+        "marginBottom": 10,
+        "width": "80%",
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Confirm Password"
+      secureTextEntry={true}
+      style={
+        {
+          "flex": 1,
+          "fontSize": 16,
+          "padding": 16,
+        }
+      }
+      value=""
+    />
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text />
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#1e90ff",
+        "borderRadius": 6,
+        "marginVertical": 10,
+        "opacity": 1,
+        "paddingVertical": 12,
+        "shadowColor": "#000",
+        "shadowOffset": {
+          "height": 2,
+          "width": 0,
+        },
+        "shadowOpacity": 0.8,
+        "shadowRadius": 3,
+        "width": "80%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#fff",
+          "fontSize": 16,
+        }
+      }
+    >
+      Register
+    </Text>
+  </View>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text>
+      Already have an account ?
+    </Text>
+    <Text>
+       
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "color": "blue",
+            "textDecorationLine": "underline",
+          }
+        }
+      >
+        Login
+      </Text>
+    </View>
+  </View>
+</View>
+`;
