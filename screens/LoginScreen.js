@@ -20,7 +20,6 @@ const TodoLoginScreen = ({ navigation}) => {
             if (user) {
                 await AsyncStorage.setItem('loggedInUser', JSON.stringify({ username: user.username }));
                 loginUser(user.username); // Dispatch LOGIN_USER action
-
                 // Retrieve todos data for the logged-in user
                 const userTodosKey = `todos_${user.username}`;
                 const todosData = await AsyncStorage.getItem(userTodosKey);
@@ -43,7 +42,35 @@ const TodoLoginScreen = ({ navigation}) => {
             console.error('Error retrieving user data from AsyncStorage:', error);
             Alert.alert('Error', 'An error occurred while logging in. Please try again.');
         }
-    };               
+    };   
+    
+    // const handleLoginPress = async () => {
+    //     try {
+    //         const response = await axios.get(`${API_URL}/users?username=${username}&password=${password}`);
+    //         const user = response.data[0]; // Assuming the response is an array with a single user object
+            
+    //         if (user) {
+    //             // Store logged-in user data in the context
+    //             dispatch({ type: LOGIN_USER, payload: user });
+
+    //             // Retrieve todos data for the logged-in user
+    //             const todosResponse = await axios.get(`${API_URL}/todos?username=${user.username}`);
+    //             const todos = todosResponse.data;
+    //             console.log(`Todos for user: ${user.username}`, todos);
+
+    //             // Update todos with user property
+    //             const todosWithUser = todos.map(todo => ({ ...todo, user: user.username }));
+    //             dispatch({ type: SET_TODOS, payload: todosWithUser });
+
+    //             navigation.navigate('Todo');
+    //         } else {
+    //             Alert.alert('Error', 'Invalid username or password. Please try again.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error logging in:', error);
+    //         Alert.alert('Error', 'An error occurred while logging in. Please try again.');
+    //     }
+    // };
 
     return (
         <View style={styles.container}>

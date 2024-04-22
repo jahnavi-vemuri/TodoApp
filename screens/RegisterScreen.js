@@ -53,8 +53,8 @@ const TodoRegisterScreen = () => {
             console.error('Error storing user data:', error);
             Alert.alert('Error', 'An error occurred while registering. Please try again.');
         }
-    };            
-
+    };  
+    
     return (
         <View style={styles.container}>
             <TextInput
