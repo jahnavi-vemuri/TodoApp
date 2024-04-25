@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 
 const TodoRegisterScreen = () => {
     const [username, setUsername] = useState('');
@@ -15,24 +16,54 @@ const TodoRegisterScreen = () => {
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
     const navigation = useNavigation();
 
+    const buttonOpacity = useSharedValue(0);
+  const buttonPositionX = useSharedValue(-1000);
+  const buttonPositionY = useSharedValue(0);
+
+  const fadeInButton = () => {
+    buttonOpacity.value = withTiming(1, { duration: 1000 });
+    buttonPositionX.value = withTiming(0, { duration: 1000 });
+  };
+
+  const moveButton = () =>{
+    buttonPositionX.value = withTiming(1000, {duration: 1000});
+  }
+
+  const bounceButton = () =>{
+    buttonPositionY.value = withSpring(-20, { stiffness: 100 });
+    setTimeout(() => {
+      buttonPositionY.value = withSpring(0, { stiffness: 100 });
+    }, 300);
+  }
+
+  React.useEffect(() => {
+    fadeInButton();
+  }, []);
+
     const handleRegisterPress = async () => {
+        if (!username || !password || !confirmPassword || !firstName || !lastName || !email) {
+            bounceButton();
+            setTimeout(() =>{
+                Alert.alert('Error', 'Enter all the details.');
+            },400);
+            return;
+        }
+    
+        if (password !== confirmPassword) {
+            bounceButton();
+            setTimeout(() =>{
+            Alert.alert('Error', 'Passwords do not match.');
+        },400);
+        return;
+        }
+    
         try {
-            if (password !== confirmPassword) {
-                Alert.alert('Error', 'Passwords do not match.');
+            const existingUser = await AsyncStorage.getItem(`userData_${username}`);
+            if (existingUser) {
+                Alert.alert('Error', 'Username already exists. Please choose a different one.');
                 return;
             }
             
-            // Check if user already exists
-            const existingUser = await AsyncStorage.getItem('userData');
-            if (existingUser) {
-                const existingUserData = JSON.parse(existingUser);
-                if (existingUserData.username === username) {
-                    Alert.alert('Error', 'Username already exists. Please choose a different one.');
-                    return;
-                }
-            }
-            
-            // Store user data in AsyncStorage
             await AsyncStorage.setItem(`userData_${username}`, JSON.stringify({ 
                 username, 
                 password, 
@@ -40,20 +71,29 @@ const TodoRegisterScreen = () => {
                 lastName, 
                 email 
             }));
-            // Create an empty todos array for the new user
+
             await AsyncStorage.setItem(`todos_${username}`, JSON.stringify([]));
             
-            // Log entire data after registration
             const allKeys = await AsyncStorage.getAllKeys();
             const allData = await AsyncStorage.multiGet(allKeys);
             console.log('All data in storage:', allData);
-            // setLoggedInUser(username);
-            navigation.navigate('Login');
+            moveButton();
+            setTimeout(() => {
+                navigation.navigate('Login');
+                fadeInButton();
+            }, 500);
         } catch (error) {
             console.error('Error storing user data:', error);
             Alert.alert('Error', 'An error occurred while registering. Please try again.');
         }
-    };  
+    };   
+    
+    const buttonAnimatedStyle = useAnimatedStyle(() => {
+        return {
+          opacity: buttonOpacity.value,
+          transform: [{ translateX: buttonPositionX.value }, { translateY: buttonPositionY.value }],
+        };
+      });
     
     return (
         <View style={styles.container}>
@@ -95,7 +135,7 @@ const TodoRegisterScreen = () => {
                 <TouchableOpacity
                     onPress={() => setIsPasswordVisible(!isPasswordVisible)}
                 >
-                    <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="black" />
+                    <MaterialIcons name={isPasswordVisible ? 'visibility-off' : 'visibility'} size={24} color="black" />
                 </TouchableOpacity>
             </View>
             <View style={styles.passwordContainer}>
@@ -109,17 +149,26 @@ const TodoRegisterScreen = () => {
                 <TouchableOpacity
                     onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
                 >
-                    <MaterialIcons name={isConfirmPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="black" />
+                    <MaterialIcons name={isConfirmPasswordVisible ? 'visibility-off' : 'visibility'} size={24} color="black" />
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={[styles.textButton, { backgroundColor: "#1e90ff" }]}
                 onPress={handleRegisterPress}
             >
                 <Text style={styles.buttonText}>
                     Register
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <Animated.View style={[styles.textButton, { backgroundColor: "#1e90ff" }, buttonAnimatedStyle]}>
+        <TouchableOpacity
+          onPress={handleRegisterPress}
+        >
+          <Text style={styles.buttonText}>
+              Register
+          </Text>
+        </TouchableOpacity>
+      </Animated.View>
             <View style={{ flexDirection: 'row' }}>
                 <Text>
                     Already have an account ?

@@ -10,7 +10,7 @@ const TodoScreen = () => {
   const { todos, dispatch, loggedInUser } = useTodoContext();
   const [showImportant, setShowImportant] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isSearchFocused, setIsSearchFocused] = useState(false); // Add isSearchFocused state
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const navigation = useNavigation();
   const animationValue = useRef(new Animated.Value(1)).current;
   const animationValues = useRef(new Map()).current;
@@ -44,13 +44,12 @@ const TodoScreen = () => {
   const animateItemEntrance = (id) => {
     Animated.timing(animatedValue(id), {
       toValue: 1,
-      duration: 700,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
   };
 
   useEffect(() => {
-    // Animate item entrance for each todo item
     todos.forEach(todo => {
       animateItemEntrance(todo.id);
     });
@@ -87,8 +86,8 @@ const TodoScreen = () => {
           style={[styles.searchText, { borderColor: isSearchFocused ? '#1e90ff' : '#ccc' }]} // Dynamic border color
           placeholder="Search Todos"
           value={searchQuery}
-          onFocus={() => setIsSearchFocused(true)} // Handle focus
-          onBlur={() => setIsSearchFocused(false)} // Handle blur
+          onFocus={() => setIsSearchFocused(true)}
+          onBlur={() => setIsSearchFocused(false)} 
           onChangeText={setSearchQuery}
         />
         <TouchableOpacity

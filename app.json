@@ -4,7 +4,7 @@
     "slug": "todo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/to-do-list.png",
+    "icon": "./assets/todo-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/to-do-list.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jahnavi3801.todo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f4afcb10-7a5f-4459-8b52-bc85c99f4356"
+      }
     }
   }
 }
