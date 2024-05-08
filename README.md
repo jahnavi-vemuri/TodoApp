@@ -1,5 +1,5 @@
 # TodoApp
-The app is developed using Expo Cli in Visual Studio. This is a react-native project written in javascript. 
+The app is developed using Expo Cli in Visual Studio Code platform. This is a react-native project written in javascript. 
 
 Run "npm start"
 Type "i" to open iOS simulator and "a" to open Android emulator.
